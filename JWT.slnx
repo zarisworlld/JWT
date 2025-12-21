@@ -1,0 +1,6 @@
+<Solution>
+  <Project Path="JWT.Api/JWT.Api.csproj" />
+  <Project Path="JWT.Application/JWT.Application.csproj" />
+  <Project Path="JWT.Domain/JWT.Domain.csproj" />
+  <Project Path="JWT.Infrastructure/JWT.Infrastructure.csproj" />
+</Solution>
