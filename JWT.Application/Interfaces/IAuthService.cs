@@ -8,5 +8,6 @@ namespace JWT.Application.Interfaces
     public interface IAuthService
     {
         Task<bool> ValidateUser(LoginDto user);
+        Task<bool> ValidateUserWithToken(string Token);
     }
 }
