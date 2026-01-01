@@ -5,6 +5,7 @@ using JWT.Infrastructure.Security;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
+using JWT.Api.Middlewares;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -54,5 +55,5 @@ app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllers();
-
+app.UseMiddleware<TokenAuthenticationMiddleware>();
 app.Run();

@@ -4,6 +4,7 @@ using JWT.Application.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 using System.Security.Claims;
 using System.IdentityModel.Tokens.Jwt;
+using Microsoft.AspNetCore.Authorization;
 
 namespace JWT.Controllers
 {
@@ -18,6 +19,7 @@ namespace JWT.Controllers
             _tokenService = tokenService;
             _authService = authService;
         }
+        [AllowAnonymous]
         [Route("Login")]
         public async Task<IActionResult> Login([FromBody] LoginRequest user)
         {

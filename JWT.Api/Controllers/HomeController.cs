@@ -9,7 +9,6 @@ namespace JWT.Api.Controllers
     {
         public HomeController() { }
 
-        [Authorize(Roles = "Admin")]
         [Route("GetAll")]
         public IActionResult GetAll()
         {
