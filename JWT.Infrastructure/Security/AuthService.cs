@@ -4,6 +4,7 @@ using JWT.Domain.Context;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
+using System.IdentityModel.Tokens.Jwt;
 using System.Text;
 
 namespace JWT.Infrastructure.Security
@@ -25,10 +26,9 @@ namespace JWT.Infrastructure.Security
 
             var jwtToken = handler.ReadJwtToken(token);
 
-            var userId = jwtToken.Claims.FirstOrDefault(x => x.Type == "Sub")?.Value;
+            Int64.TryParse(jwtToken.Claims.FirstOrDefault(x => x.Type == "Sub")?.Value,out long userId);
             var userName = jwtToken.Claims.FirstOrDefault(x => x.Type == "Name")?.Value;
             var role = jwtToken.Claims.FirstOrDefault(x => x.Type == "Role")?.Value;
-            this.ValidateUser(userId);
             return await _dbContext.Users.AnyAsync(c => c.Id == userId && c.Name == userName && c.Role == role);
         }
     }

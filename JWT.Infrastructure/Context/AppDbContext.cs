@@ -13,29 +13,13 @@ namespace JWT.Domain.Context
             
         }
         public DbSet<User> Users { get; set; } = null!;
+        public DbSet<Order> Orders { get; set; } = null!;
+        public DbSet<OrderItem> OrderItems { get; set; } = null!;
+        public DbSet<Item> Items { get; set; } = null!;
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            base.OnModelCreating(modelBuilder);
-            modelBuilder.Entity<User>(entity =>
-            {
-                entity.ToTable("Users");
-                entity.HasKey(u => u.Id);
-
-                entity.Property(u => u.Name)
-               .IsRequired()
-               .HasMaxLength(100);
-
-                entity.Property(u => u.Role)
-                .IsRequired();
-
-                entity.Property(u => u.Password)
-                .IsRequired();
-
-                entity.Property(u => u.CreateDate)
-                .IsRequired()
-                .HasDefaultValueSql("GETDATE()");
-            });
+            modelBuilder.ApplyConfigurationsFromAssembly(typeof(AppDbContext).Assembly);
         }
     }
 }
