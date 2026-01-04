@@ -1,11 +1,11 @@
-﻿using JWT.Application.Interfaces;
-using System.Security.Claims;
+﻿using System.Security.Claims;
 using System.Text;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
+using JWT.Application.Interfaces.Security;
 
-namespace JWT.Infrastructure.Security
+namespace JWT.Infrastructure.DomainServices.SecurityDomainService
 {
     public class TokenService : ITokenService
     {

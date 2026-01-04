@@ -1,0 +1,37 @@
+﻿using AutoMapper;
+using JWT.Api.ViewModels.Order;
+using JWT.Application.Queries.Orders;
+using MediatR;
+using Microsoft.AspNetCore.Mvc;
+
+namespace JWT.Api.Controllers
+{
+    [ApiController]
+    [Route("api/[controller]")]
+    public class OrderController : ControllerBase
+    {
+        private readonly IMediator _mediatR;
+        private readonly IMapper _mapper;
+        public OrderController(IMediator mediateR,IMapper mapper) 
+        {
+            _mediatR = mediateR;
+            _mapper = mapper;
+        }
+
+        [Route("GetAll")]
+        public async Task<List<OrderViewModel>> GetAllOrders()
+        {
+            try
+            {
+                var result =  await _mediatR.Send(new GetOrdersQuery());
+                var mappedResult = _mapper.Map<List<OrderViewModel>>(result);
+                return mappedResult;
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+        }
+    }
+}

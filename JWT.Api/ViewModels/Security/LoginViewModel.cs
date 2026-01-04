@@ -1,10 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace JWT.Application.Dtos
+﻿namespace JWT.Api.ViewModels.Security
 {
-    public class LoginDto
+    public class LoginViewModel
     {
         public string UserName { get; set; }
         public long UserId { get; set; }

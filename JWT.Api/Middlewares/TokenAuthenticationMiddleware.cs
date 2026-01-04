@@ -1,4 +1,4 @@
-﻿using JWT.Application.Interfaces;
+﻿using JWT.Application.Interfaces.Security;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.Net.Http.Headers;
 using System.Net;

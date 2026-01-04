@@ -1,6 +1,10 @@
-﻿namespace JWT.Api.ViewModels
+﻿using System;
+using System.Collections.Generic;
+using System.Text;
+
+namespace JWT.Application.Dtos.Security
 {
-    public class LoginRequest
+    public class LoginDto
     {
         public string UserName { get; set; }
         public long UserId { get; set; }

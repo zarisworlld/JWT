@@ -1,11 +1,15 @@
-using Microsoft.EntityFrameworkCore;
+using JWT.Api.Middlewares;
+using JWT.Application.Interfaces.Order;
+using JWT.Application.Interfaces.Security;
+using JWT.Application.Mappers.OrderMapper;
+using JWT.Application.Queries.Orders;
 using JWT.Domain.Context;
-using JWT.Application.Interfaces;
-using JWT.Infrastructure.Security;
+using JWT.Infrastructure.DomainServices.OrderDomainService;
+using JWT.Infrastructure.DomainServices.SecurityDomainService;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
-using JWT.Api.Middlewares;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -48,6 +52,16 @@ builder.Services.AddControllers();
 // Dependency Injection
 builder.Services.AddScoped<ITokenService, TokenService>();
 builder.Services.AddScoped<IAuthService, AuthService>();
+builder.Services.AddScoped<IOrderService, OrderService>();
+var applicationAssembly = typeof(GetOrdersQuery).Assembly;
+
+builder.Services.AddMediatR(cfg => {
+    cfg.RegisterServicesFromAssemblies(
+        typeof(Program).Assembly,
+        applicationAssembly
+    );
+});
+builder.Services.AddAutoMapper(typeof(OrderMappingProfile));
 var app = builder.Build();
 // Middle wares
 app.UseHttpsRedirection();

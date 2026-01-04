@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Security.Claims;
 using System.Text;
 
-namespace JWT.Application.Interfaces
+namespace JWT.Application.Interfaces.Security
 {
     public interface ITokenService
     {

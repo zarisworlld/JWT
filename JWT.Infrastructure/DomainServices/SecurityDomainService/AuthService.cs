@@ -1,17 +1,13 @@
-﻿using JWT.Application.Dtos;
-using JWT.Application.Interfaces;
+﻿using JWT.Application.Dtos.Security;
+using JWT.Application.Interfaces.Security;
 using JWT.Domain.Context;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
-using System;
-using System.Buffers.Text;
-using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
 using System.Text;
-using System.Text.Unicode;
 
-namespace JWT.Infrastructure.Security
+namespace JWT.Infrastructure.DomainServices.SecurityDomainService
 {
     public class AuthService : IAuthService
     {

@@ -1,10 +1,10 @@
-using JWT.Api.ViewModels;
-using JWT.Application.Dtos;
-using JWT.Application.Interfaces;
-using Microsoft.AspNetCore.Mvc;
-using System.Security.Claims;
-using System.IdentityModel.Tokens.Jwt;
+using JWT.Api.ViewModels.Security;
+using JWT.Application.Dtos.Security;
+using JWT.Application.Interfaces.Security;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
+using System.IdentityModel.Tokens.Jwt;
+using System.Security.Claims;
 
 namespace JWT.Controllers
 {
@@ -21,7 +21,7 @@ namespace JWT.Controllers
         }
         [AllowAnonymous]
         [Route("Login")]
-        public async Task<IActionResult> Login([FromBody] LoginRequest user)
+        public async Task<IActionResult> Login([FromBody] LoginViewModel user)
         {
             var loginUser = new LoginDto();
             loginUser.UserId = user.UserId;

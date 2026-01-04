@@ -1,9 +1,9 @@
-﻿using JWT.Application.Dtos;
+﻿using JWT.Application.Dtos.Security;
 using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace JWT.Application.Interfaces
+namespace JWT.Application.Interfaces.Security
 {
     public interface IAuthService
     {
