@@ -1,3 +1,5 @@
+using AutoMapper;
+using JWT.Api.Mappers.OrderMapper;
 using JWT.Api.Middlewares;
 using JWT.Application.Interfaces.Order;
 using JWT.Application.Interfaces.Security;
@@ -54,15 +56,20 @@ builder.Services.AddScoped<ITokenService, TokenService>();
 builder.Services.AddScoped<IAuthService, AuthService>();
 builder.Services.AddScoped<IOrderService, OrderService>();
 var applicationAssembly = typeof(GetOrdersQuery).Assembly;
-
+var apiAssembly = typeof(OrderRequestMappingProfile).Assembly;
 builder.Services.AddMediatR(cfg => {
     cfg.RegisterServicesFromAssemblies(
-        typeof(Program).Assembly,
+        apiAssembly,
         applicationAssembly
     );
 });
 builder.Services.AddAutoMapper(typeof(OrderMappingProfile));
 var app = builder.Build();
+using (var scope = app.Services.CreateScope())
+{
+    var mapper = scope.ServiceProvider.GetRequiredService<IMapper>();
+    mapper.ConfigurationProvider.AssertConfigurationIsValid();
+}
 // Middle wares
 app.UseHttpsRedirection();
 app.UseAuthentication();
