@@ -5,8 +5,9 @@ using System.Text;
 
 namespace JWT.Domain.Entities
 {
-    public class OrderItem : BaseEntity<long>
+    public class OrderItem
     {
+        public long Id { get; set; }
         public long ItemId {  get; set; }
         public long OrderId {  get; set; }
         public decimal SalesPrice {  get; set; }

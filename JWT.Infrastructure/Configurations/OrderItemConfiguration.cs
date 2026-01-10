@@ -12,7 +12,7 @@ namespace JWT.Infrastructure.Configurations
         public void Configure(EntityTypeBuilder<OrderItem> builder)
         {
             builder.ToTable("OrderItem");
-            builder.HasOne(oi => oi.Order).WithMany().HasForeignKey(oi => oi.OrderId)
+            builder.HasOne(oi => oi.Order).WithMany(c => c.OrderItems).HasForeignKey(oi => oi.OrderId)
                 .OnDelete(DeleteBehavior.Restrict);
             builder.HasOne(oi => oi.Item).WithMany().HasForeignKey(oi => oi.ItemId)
                 .OnDelete(DeleteBehavior.Restrict);

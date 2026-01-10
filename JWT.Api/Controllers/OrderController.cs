@@ -40,6 +40,7 @@ namespace JWT.Api.Controllers
         {
             try
             {
+                var isMapped = _mapper.ConfigurationProvider.BuildExecutionPlan(typeof(OrderViewModel), typeof(CreateOrderCommand));
                 var order = _mapper.Map<CreateOrderCommand>(data);
                 var result = await _mediatR.Send(order);
                 return result;

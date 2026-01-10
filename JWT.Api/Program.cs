@@ -63,7 +63,7 @@ builder.Services.AddMediatR(cfg => {
         applicationAssembly
     );
 });
-builder.Services.AddAutoMapper(typeof(OrderMappingProfile));
+builder.Services.AddAutoMapper(apiAssembly, applicationAssembly);
 var app = builder.Build();
 using (var scope = app.Services.CreateScope())
 {

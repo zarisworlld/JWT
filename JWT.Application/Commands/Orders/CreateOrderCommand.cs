@@ -7,5 +7,15 @@ using JWT.Domain.Entities;
 using MediatR;
 namespace JWT.Application.Commands.Orders
 {
-    public record CreateOrderCommand(long Id,decimal PayablePrice , decimal? DiscountPrice , ICollection<CreateOrderItemCommand> OrderItems) : IRequest<long>;
+    public class CreateOrderCommand : IRequest<long>
+    {
+        public long Id { get; set; }
+
+
+        public DateTime CreateDate { get; set; }
+        public decimal PayablePrice { get; set; }
+        public decimal? DiscountPrice { get; set; }
+
+        public List<OrderItemDto> OrderItems { get; set; } = new();
+    }
 }

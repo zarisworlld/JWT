@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using JWT.Application.Commands.Items;
 using JWT.Application.Dtos.ItemDtos;
 using JWT.Domain.Entities;
 using System;
@@ -11,8 +12,8 @@ namespace JWT.Application.Mappers.ItemMapper
     {
         public ItemMappingProfile()
         {
-            CreateMap<ItemDto, Item>();
-            CreateMap<Item, ItemDto>();
+            CreateMap<ItemDto, Item>().ReverseMap();
+            CreateMap<CreateItemCommand, ItemDto>().ReverseMap();
         }
     }
 }
