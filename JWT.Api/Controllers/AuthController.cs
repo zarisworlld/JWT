@@ -1,6 +1,7 @@
 using JWT.Api.ViewModels.Security;
 using JWT.Application.Dtos.Security;
 using JWT.Application.Interfaces.Security;
+using JWT.Domain.Entities;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.IdentityModel.Tokens.Jwt;
@@ -39,6 +40,29 @@ namespace JWT.Controllers
                };
                token = _tokenService.CreateAccessToken(claims);
                return Ok(token);
+            }
+            else
+            {
+                return Unauthorized();
+            }
+        }
+
+        [AllowAnonymous]
+        [Route("TestLogin")]
+        public async Task<IActionResult> TestLogin([FromBody] TestLoginViewModel model)
+        {
+            var loginUser = new TestLoginDto();
+            loginUser.Password = model.password;
+            loginUser.UserName = model.userName;
+            string token = string.Empty;
+            if (await this._authService.TestValidateUser(loginUser))
+            {
+                var claims = new List<Claim>
+               {
+                   new Claim(ClaimTypes.Name,loginUser.UserName)
+               };
+                token = _tokenService.CreateAccessToken(claims);
+                return Ok(token);
             }
             else
             {

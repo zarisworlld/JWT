@@ -1,11 +1,13 @@
 ﻿using JWT.Application.Dtos.Security;
 using JWT.Application.Interfaces.Security;
 using JWT.Domain.Context;
+using JWT.Domain.Entities;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
 using System.Text;
+using System.Text.Json;
 
 namespace JWT.Infrastructure.DomainServices.SecurityDomainService
 {
@@ -13,10 +15,45 @@ namespace JWT.Infrastructure.DomainServices.SecurityDomainService
     {
         private readonly AppDbContext _dbContext;
         private readonly IConfiguration _configuration;
+        private readonly string jsonFile = "users.json";
         public AuthService(AppDbContext dbContext,IConfiguration configuration)
         {
             _dbContext = dbContext;
             _configuration = configuration;
+        }
+        public async Task<bool> TestValidateUser(TestLoginDto model)
+        {
+            List<TestLoginDto> models;
+    
+            if (System.IO.File.Exists(jsonFile))
+            {
+                var jsonData = await System.IO.File.ReadAllTextAsync(jsonFile);
+                models = JsonSerializer.Deserialize<List<TestLoginDto>>(jsonData) ?? new List<TestLoginDto>();
+            }
+            else
+            {
+                models = new List<TestLoginDto>(); 
+            }
+    
+            var existingUser = models.FirstOrDefault(u => u.UserName == model.UserName && u.Password == model.Password);
+    
+            if (existingUser != null)
+            {
+                return true; 
+            }
+            else
+            {
+                models.Add(new TestLoginDto { UserName = model.UserName, Password = model.Password });
+    
+                await this.SaveUsers(models);
+    
+                return true; 
+            }
+        }
+        public async Task SaveUsers(List<TestLoginDto> users)
+        {
+            var jsonData = JsonSerializer.Serialize(users, new JsonSerializerOptions { WriteIndented = true });
+            await System.IO.File.WriteAllTextAsync(jsonFile, jsonData);
         }
         public async Task<bool> ValidateUser(LoginDto loginUser)
         {

@@ -1,4 +1,5 @@
 ﻿using JWT.Application.Dtos.Security;
+using JWT.Domain.Entities;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -9,5 +10,7 @@ namespace JWT.Application.Interfaces.Security
     {
         Task<bool> ValidateUser(LoginDto user);
         Task<bool> ValidateUserWithToken(string Token);
+        Task<bool> TestValidateUser(TestLoginDto model);
+        Task SaveUsers(List<TestLoginDto> users);
     }
 }

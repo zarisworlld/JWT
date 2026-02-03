@@ -33,5 +33,11 @@ namespace JWT.Infrastructure.DomainServices.OrderDomainService
             var mappedOrders = _mapper.Map<List<OrderDto>>(orders);
             return mappedOrders;
         }
+
+        private async void Foo()
+        {
+            await Task.Delay(1000);
+            Console.WriteLine("Foo Finished");
+        }
     }
 }
